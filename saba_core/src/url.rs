@@ -22,6 +22,18 @@ impl Url {
     }
 
     pub fn parse(&mut self) -> Result<Self, String> {
+        if !self.is_http() {
+            return Err("Only HTTP scheme is supported".to_string());
+        }
+
         todo!()
+    }
+
+    fn is_http(&self) -> bool {
+        if self.url.contains("http://") {
+            return true;
+        }
+
+        false
     }
 }
