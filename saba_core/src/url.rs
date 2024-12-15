@@ -1,5 +1,6 @@
 use alloc::string::String;
 use alloc::string::ToString;
+use alloc::vec::Vec;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Url {
@@ -35,5 +36,19 @@ impl Url {
         }
 
         false
+    }
+
+    fn extract_host(&self) -> String {
+        let url_parts: Vec<&str> = self
+            .url
+            .trim_start_matches("http://")
+            .splitn(2, "/")
+            .collect();
+
+        if let Some(index) = url_parts[0].find(':') {
+            url_parts[0][..index].to_string()
+        } else {
+            url_parts[0].to_string()
+        }
     }
 }
