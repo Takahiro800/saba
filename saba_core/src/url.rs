@@ -20,4 +20,8 @@ impl Url {
             searchpart: "".to_string(),
         }
     }
+
+    pub fn parse(&mut self) -> Result<Self, String> {
+        todo!()
+    }
 }
