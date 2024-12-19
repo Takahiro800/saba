@@ -27,7 +27,12 @@ impl Url {
             return Err("Only HTTP scheme is supported".to_string());
         }
 
-        todo!()
+        self.host = self.extract_host();
+        self.port = self.extract_port();
+        self.path = self.extract_path();
+        self.searchpart = self.extract_searchpart();
+
+        Ok(self.clone())
     }
 
     fn is_http(&self) -> bool {
