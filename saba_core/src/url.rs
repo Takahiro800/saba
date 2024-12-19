@@ -59,17 +59,14 @@ impl Url {
     }
 
     fn extract_path(&self) -> String {
-        let url_parts: Vec<&str> = self.extract_url_parts();
-
-        if url_parts.len() < 2 {
-            return "".to_string();
-        }
-
-        let path_and_searchpart: Vec<&str> = url_parts[1].splitn(2, "?").collect();
-        path_and_searchpart[0].to_string()
+        self.extract_parts(0)
     }
 
     fn extract_searchpart(&self) -> String {
+        self.extract_parts(1)
+    }
+
+    fn extract_parts(&self, index: usize) -> String {
         let url_parts: Vec<&str> = self.extract_url_parts();
 
         if url_parts.len() < 2 {
@@ -77,10 +74,11 @@ impl Url {
         }
 
         let path_and_searchpart: Vec<&str> = url_parts[1].splitn(2, "?").collect();
-        if path_and_searchpart.len() < 2 {
+
+        if index >= path_and_searchpart.len() {
             "".to_string()
         } else {
-            path_and_searchpart[1].to_string()
+            path_and_searchpart[index].to_string()
         }
     }
 
